@@ -1,12 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>pineapple.</title>
+    <link rel="stylesheet" type="text/css" href="styles\styles.css">
 </head>
+
 <body>
-    
+    <div class="container">
+        <header>
+            <nav>
+                <ul class="navigation__list">
+                    <li class="navigation__item navigation__logo">
+                        <svg width="118" height="40">
+                            <use xlink:href="imgs\sprites.svg#logo_pineapple"></use>
+                        </svg>
+                    </li>
+                    <li class="navigation__item navigation__about">
+                        About
+                    </li>
+                    <li class="navigation__item navigation__hiw">
+                        How it works
+                    </li>
+                    <li class="navigation__item navigation__contact">
+                        Contact
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h1 class="main__heading">Subscribe to newsletter</h1>
+            <p class="main__description">Subscribe to our newsletter and get 10% discount on pineapple glasses.</p>
+            <form class="main__form" action="">
+                <input class="form__input" type="text">
+                <input class="form__checkbox" type="checkbox" id="agreement" name="agreement"
+                checked>
+                <label class="form__label" for="agreement">I agree to <a class="agreement__link">terms of service</a></label>
+            </form>
+        </main>
+        <footer>
+            <ul class="footer__socials">
+                <li class="footer__social footer__facebook">
+                    <svg width="46" height="46">
+                        <use xlink:href="imgs\sprites.svg#facebook"></use>
+                    </svg>
+                </li>
+                <li class="footer__social footer__instagram">
+                    <svg width="46" height="46">
+                        <use xlink:href="imgs\sprites.svg#instagram"></use>
+                    </svg>
+
+                </li>
+                <li class="footer__social footer__twitter">
+                    <svg width="46" height="46">
+                        <use xlink:href="imgs\sprites.svg#twitter"></use>
+                    </svg>
+
+                </li>
+                <li class="footer__social footer__youtube">
+                    <svg width="46" height="46">
+                        <use xlink:href="imgs\sprites.svg#youtube"></use>
+                    </svg>
+
+                </li>
+            </ul>
+        </footer>
+    </div>
 </body>
+
 </html>
+
+
+
