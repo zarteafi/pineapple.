@@ -1,0 +1,247 @@
+// reset styles
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+*,
+*:before,
+*:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+:focus,
+:active {
+    outline: none;
+}
+a:focus,
+a:active {
+    outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+    display: block;
+}
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+input,
+button,
+textarea {
+    font-family: inherit;
+}
+
+input::-ms-clear {
+    display: none;
+}
+button {
+    cursor: pointer;
+}
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+a,
+a:visited {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+ul li {
+    list-style: none;
+    list-style-type: none;
+}
+img {
+    vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: inherit;
+    font-weight: 400;
+}
+
+// variables
+$color-blue: #4066a5;
+$color-black: #131821;
+$color-gray: #6a707b;
+$color-brightyellow: #e3e3e4;
+$color-brightblue: #f2f5fa;
+
+// mixins
+@mixin flexRow {
+    display: flex;
+    flex-direction: row;
+}
+
+@mixin centredText {
+    margin-left: 40px;
+    max-width: 400px;
+}
+
+body {
+    background-color: linear-gradient(180deg, #FFFFFF 0%, #F2F5FA 100%);;
+    background-image: url(/imgs/image_summer.jpg);
+    background-position-x: 680px;
+    background-repeat: no-repeat;
+    color: $color-gray;
+    font-family: Arial;
+    font-style: normal;
+}
+// classes
+.container {
+    width: 763px;
+    padding: 100px 0 100px 100px;
+}
+
+.header {
+    margin-bottom: 227px;
+}
+
+.navigation {
+    width: 100%;
+    &__list {
+        @include flexRow();
+        justify-content: space-between;
+    }
+    &__item {
+        font-family: Arial;
+        font-style: normal;
+        font-size: 16px;
+        line-height: 26px;
+    }
+    &__item:not(:first-child) {
+        padding-top: 15px;
+    }
+    &__logo {
+        margin-right: 83px;
+    }
+    &__about {
+    }
+    &__hiw {
+    }
+    &__contact {
+    }
+}
+
+.main {
+    margin-bottom: 50px;
+    &__heading {
+        @include centredText();
+        color: $color-black;
+        font-family: Georgia;
+        font-size: 32px;
+        line-height: 44px;
+        margin-bottom: 15px;
+    }
+    &__description {
+        @include centredText();
+        font-size: 16px;
+        line-height: 28px;
+        margin-bottom: 50px;
+    }
+    &__form {
+    }
+}
+.form {
+    &__field {
+        @include flexRow();
+        align-items: center;
+
+        max-width: 663px;
+        max-height: 70px;
+
+        border: 1px solid #e3e3e4;
+
+        padding: 23px 40px;
+        margin-bottom: 54px;
+
+        border-left: 4px solid $color-blue;
+
+        background-color: white;
+    }
+    &__input {
+        font-size: 16px;
+        line-height: 24px;
+
+        max-height: 24px;
+        width: 100%;
+    }
+
+    &__checkbox {
+        position: absolute;
+        appearance: none;
+
+        width: 26px;
+        height: 26px;
+        background-image: url(/imgs/unchecked.svg);
+        background-repeat: no-repeat;
+
+        margin-left: 40px;
+    }
+
+    &__checkbox:checked {
+        background-image: url(/imgs/checked.svg);
+    }
+
+    &__label {
+        @include centredText();
+        font-size: 16px;
+        line-height: 28px;
+
+        padding-left: 41px;
+    }
+
+    &__submit {
+        background-color: white;
+    }
+}
+.agreement__link {
+    color: $color-black;
+    text-decoration: underline;
+}
+.footer {
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 50px;
+    margin-right: 223px;
+    border-top: 1px solid #e3e3e4;
+    &__socials {
+        @include flexRow();
+        justify-content: center;
+    }
+    &__social:not(:last-child) {
+        margin-right: 20px;
+    }
+    &__facebook {
+    }
+    &__instagram {
+    }
+    &__twitter {
+    }
+    &__youtube {
+    }
+}
+
+.width480 {
+    max-width: 480px;
+}

@@ -11,8 +11,8 @@
 
 <body>
     <div class="container">
-        <header>
-            <nav>
+        <header class="header width480">
+            <nav class="navigation">
                 <ul class="navigation__list">
                     <li class="navigation__item navigation__logo">
                         <svg width="118" height="40">
@@ -31,17 +31,25 @@
                 </ul>
             </nav>
         </header>
-        <main>
+        <main class="main">
             <h1 class="main__heading">Subscribe to newsletter</h1>
             <p class="main__description">Subscribe to our newsletter and get 10% discount on pineapple glasses.</p>
             <form class="main__form" action="">
-                <input class="form__input" type="text">
-                <input class="form__checkbox" type="checkbox" id="agreement" name="agreement"
-                checked>
+
+                <div class="form__field">
+                    <input class="form__input" type="text" placeholder="Type your email address here…">
+                    <button class="form__submit" type="submit">
+                        <svg width="24" height="14">
+                            <use xlink:href="imgs\sprites.svg#arrow"></use>
+                        </svg>
+                    </button>
+                </div>
+
+                <input class="form__checkbox" type="checkbox" id="agreement" name="agreement">
                 <label class="form__label" for="agreement">I agree to <a class="agreement__link">terms of service</a></label>
             </form>
         </main>
-        <footer>
+        <footer class="footer">
             <ul class="footer__socials">
                 <li class="footer__social footer__facebook">
                     <svg width="46" height="46">
