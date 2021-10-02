@@ -1,0 +1,17 @@
+.header {
+    margin-bottom: 122px;
+}
+
+.hero {
+    background-image: url(/imgs/ic_success.svg);
+    background-repeat: no-repeat;
+
+    padding-top: 100px;
+
+    background-position-x: 40px;
+
+    &__heading {
+        margin-bottom: 20px;
+    }
+}
+
