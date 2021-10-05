@@ -177,7 +177,6 @@ body {
     border: 1px solid #e3e3e4;
 
     padding: 23px 40px;
-    margin-bottom: 54px;
 
     border-left: 4px solid $color-blue;
 
@@ -206,6 +205,12 @@ body {
     max-height: 24px;
     min-width: 227px;
     width: 100%;
+  }
+
+  &__input:focus {
+    outline: none;
+    border-width: 0px;
+    border: none;
   }
   &__input:focus::placeholder {
     color: transparent;
@@ -239,6 +244,23 @@ body {
     background-color: white;
   }
 }
+
+.input {
+  &__message {
+    margin-bottom: 54px;
+    font-size: 15px;
+    height: min-content;
+  }
+}
+
+.agreement {
+  &__message {
+    margin-left: 40px;
+    font-size: 15px;
+    height: min-content;
+  }
+}
+
 .agreement__link {
   color: $color-black;
   text-decoration: underline;
@@ -420,6 +442,12 @@ body {
     }
   }
 
+  .agreement {
+    &__message {
+      margin-left: 0;
+    }
+  }
+
   .footer {
     min-width: 295px;
     max-width: 100%;
@@ -496,5 +524,11 @@ body {
     min-width: 295px;
     max-width: 100%;
     padding-top: 20px;
+  }
+
+  .input {
+    &__message {
+      margin-bottom: 21px;
+    }
   }
 }
