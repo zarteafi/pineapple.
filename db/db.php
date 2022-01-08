@@ -35,6 +35,43 @@ function getEmails()
     return ['emails' => $emails, 'dates' => $dates];
 }
 
+function getFilteredEmails($toFind, $sortBy, $sortOrder, $filters)
+{
+    $emails = [];
+    $dates = [];
+
+    $filtersString = '';
+
+    $search = empty($filters) ? '' : "where `email`  like '%$toFind%'";
+
+    if ($toFind === '') {
+        $toFind = current($filters);
+        unset($filters[$toFind]);
+    }
+
+    foreach ($filters as $key => $value) {
+        $filtersString .= "OR `email` LIKE '%$key%'";
+    }
+
+    $query = "
+SELECT `id`,`email`, `date`
+FROM `pineapple_db`.`subscribed`
+#SEARCH
+#FILTERS
+ORDER BY `$sortBy` $sortOrder; ";
+
+    $query = str_replace('#SEARCH', $search, $query);
+    $query = str_replace('#FILTERS', $filtersString, $query);
+
+    $result = mysqli_query(connect(), $query);
+
+    foreach ($result as $elem) {
+        $emails[$elem['id']] = $elem['email'];
+        $dates[$elem['id']] = $elem['date'];
+    }
+    return ['emails' => $emails, 'dates' => $dates];
+}
+
 function deleteEmail($id)
 {
     mysqli_query(connect(), "DELETE FROM `pineapple_db`.`subscribed` WHERE id = $id");

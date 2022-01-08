@@ -1,6 +1,26 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . '/db/db.php');
-$data = getEmails();
+
+if (isset($_POST['delete'])) {
+    deleteEmail($_POST['delete']);
+}
+
+if (count($_POST) > 2 ||
+    (isset($_POST['toFind']) && $_POST['toFind'] !== '') ||
+    (isset($_POST['sort']) && $_POST['sort'] !== 'dasc')) {
+
+    $toFind = htmlspecialchars($_POST['toFind']);
+    $sortBy = $_POST['sort'][0] === 'e' ? 'email' : 'date';
+    $sortOrder = $_POST['sort'][1] === 'd' ? 'DESC' : 'ASC';
+    $filters = $_POST;
+    unset($filters['toFind']);
+    unset($filters['sort']);
+    $data = getFilteredEmails($toFind, $sortBy, $sortOrder, $filters);
+} else {
+    $data = getEmails();
+}
+
+
 $emails = $data['emails'];
 $dates = $data['dates'];
 
@@ -41,21 +61,27 @@ if (isset($domains['gmail']) && $domains['gmail'] >= 3 && isset($domains['yahoo'
     <script defer src="js/email_table.js"></script>
 </head>
 <body>
-<form id="form" method="get">
-    <table id="table">
-        <input id="search" onkeyup="searchEmail()"/>
+<form id="form" method="post">
+    <table id="table" border="1" cellspacing="0">
+        <input id="search" name="toFind"/>
+        <br/>
+        <?php foreach ($filteredDomains as $domain): ?>
+            <input type="checkbox" id="<?= $domain ?>" name="<?= $domain ?>">
+            <label for="<?= $domain ?>"><?= $domain ?></label>
+        <?php endforeach; ?>
+        <button type="submit">load</button>
         <tr>
             <th>Email
-                <button onclick="sortBy(0)">sort</button>
-                <?php foreach ($filteredDomains as $domain): ?>
-<!--                    <button onclick="return filter('</?= $domain ?>//')"><\?= $domain ?></button>-->
-
-                    <label for="<?= $domain ?>"><?= $domain ?></label>
-                    <input type="checkbox" id="<?= $domain ?>" name="<?= $domain ?>">
-                <?php endforeach; ?>
+                <input type="radio" id="easc" name="sort" value="easc">
+                <label for="easc">asc</label>
+                <input type="radio" id="edesc" name="sort" value="edesc">
+                <label for="edesc">desc</label>
             </th>
             <th>Date
-                <button onclick="sortBy(1)">sort</button>
+                <input type="radio" id="dasc" name="sort" value="dasc" checked>
+                <label for="dasc">asc</label>
+                <input type="radio" id="ddesc" name="sort" value="ddesc">
+                <label for="ddesc">desc</label>
             </th>
             <th>Delete</th>
         </tr>
@@ -64,8 +90,7 @@ if (isset($domains['gmail']) && $domains['gmail'] >= 3 && isset($domains['yahoo'
             <tr>
                 <td><?= $email ?></td>
                 <td><?= $dates[$id] ?></td>
-                <td><input type="checkbox" name="delete" value="<?= $id ?>"
-                           onchange="submit()"/></td>
+                <td><input type="checkbox" name="delete" value="<?= $id ?>"</td>
             </tr>
 
         <?php endforeach; ?>
