@@ -1,8 +1,8 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . '/db/db.php');
+include($_SERVER['DOCUMENT_ROOT'] . '/Model/DBCommunication.php');
 
 if (isset($_POST['delete'])) {
-    deleteEmail($_POST['delete']);
+    DBCommunication::deleteEmail($_POST['delete']);
 }
 
 if (count($_POST) > 2 ||
@@ -15,18 +15,18 @@ if (count($_POST) > 2 ||
     $filters = $_POST;
     unset($filters['toFind']);
     unset($filters['sort']);
-    $data = getFilteredEmails($toFind, $sortBy, $sortOrder, $filters);
+    $data = DBCommunication::getFilteredEmails($toFind, $sortBy, $sortOrder, $filters);
+    $isFiltered = true;
 } else {
-    $data = getEmails();
+    $data = DBCommunication::getEmails();
+    $isFiltered = false;
 }
-
 
 $emails = $data['emails'];
 $dates = $data['dates'];
 
-
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
-    deleteEmail($_GET['delete']);
+    DBCommunication::deleteEmail($_GET['delete']);
 }
 
 $domains = [];
@@ -48,7 +48,6 @@ if (isset($domains['gmail']) && $domains['gmail'] >= 3 && isset($domains['yahoo'
     }
 
 }
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -58,7 +57,6 @@ if (isset($domains['gmail']) && $domains['gmail'] >= 3 && isset($domains['yahoo'
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Subscribed emails</title>
-    <script defer src="js/email_table.js"></script>
 </head>
 <body>
 <form id="form" method="post">
@@ -69,7 +67,7 @@ if (isset($domains['gmail']) && $domains['gmail'] >= 3 && isset($domains['yahoo'
             <input type="checkbox" id="<?= $domain ?>" name="<?= $domain ?>">
             <label for="<?= $domain ?>"><?= $domain ?></label>
         <?php endforeach; ?>
-        <button type="submit">load</button>
+        <button type="submit"><?= $isFiltered ? 'reset/load' : 'load' ?></button>
         <tr>
             <th>Email
                 <input type="radio" id="easc" name="sort" value="easc">

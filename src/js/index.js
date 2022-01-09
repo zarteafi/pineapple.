@@ -5,6 +5,7 @@ const submitButton = document.getElementsByClassName("form__submit")[0];
 const agreementCheckbox = document.getElementById("agreement");
 
 emailError.textContent = '';
+agreementError.textContent = '';
 agreementCheckbox.checked = false;
 submitButton.disabled = true;
 let emailValid = false;

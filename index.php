@@ -1,23 +1,17 @@
 <?php
 ob_start();
 
-require($_SERVER['DOCUMENT_ROOT'] . '/php/template.php');
-getHeader('<script defer src="js/index.js"></script>');
-require($_SERVER['DOCUMENT_ROOT'] . '/php/server_side_validation.php');
+require($_SERVER['DOCUMENT_ROOT'] . '/View/template.php');
+getHeader('<script defer src="../src/js/index.js"></script>');
+require($_SERVER['DOCUMENT_ROOT'] . '/Controller/ServerSideValidation.php');
 
-/**
- * @var string $emailError
- */
-
-/**
- * @var string $agreementError
- */
+UserFormValidation::validate()
 ?>
     <section class="hero">
         <h1 class="hero__heading">Subscribe to newsletter</h1>
         <p class="hero__description">Subscribe to our newsletter and get 10% discount on pineapple glasses.
         </p>
-        <form class="hero__form" method="post" action="<?php validate($emailError, $agreementError); ?>">
+        <form class="hero__form" method="post">
 
             <div class="form__field">
                 <input class="form__input" type="text" name="email" placeholder="Type your email address here…">
@@ -31,12 +25,12 @@ require($_SERVER['DOCUMENT_ROOT'] . '/php/server_side_validation.php');
                     </svg>
                 </button>
             </div>
-            <p class="input__message"> <?= $emailError ?> </p>
+            <p class="input__message"> <?= UserFormValidation::getEmailError() ?> </p>
 
             <input class="form__checkbox" type="checkbox" id="agreement" name="agreement">
             <label class="form__label" for="agreement">I agree to </label>
             <a class="agreement__link" href="">terms of service</a>
-            <p class="agreement__message"> <?= $agreementError ?> </p>
+            <p class="agreement__message"> <?= UserFormValidation::getAgreementError() ?> </p>
         </form>
     </section>
 <?php

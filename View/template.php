@@ -11,8 +11,8 @@ function getHeader($headItem = '')
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>pineapple.</title>
-        <link rel="stylesheet" href="../styles/normalize.min.css">
-        <link rel="stylesheet" href="../styles/styles.min.css">
+        <link rel="stylesheet" href="../src/styles/normalize.min.css">
+        <link rel="stylesheet" href="../src/styles/styles.min.css">
         <?php echo $headItem ?>
 
     </head>

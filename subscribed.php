@@ -1,6 +1,6 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . '/php/template.php');
-getHeader('<link rel="stylesheet" href="styles/subscribed.min.css">');
+include($_SERVER['DOCUMENT_ROOT'] . '/View/template.php');
+getHeader('<link rel="stylesheet" href="../src/styles/subscribed.min.css">');
 ?>
 
     <section class="hero">
