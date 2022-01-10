@@ -7,9 +7,9 @@ namespace App\Model;
 class DBCommunication
 {
 
-    private const DB_SERVER = "wdt";
+    private const DB_SERVER = "localhost";
     private const DB_USER = "root";
-    private const DB_PASSWORD = "";
+    private const DB_PASSWORD = "test12345";
     private const DB_DATABASE = "pineapple_db";
 
     private static function connect()
@@ -46,7 +46,7 @@ ORDER BY `$sortBy` $sortOrder;";
         $isNotEmptyFilters = !empty($filters);
 
         if ($isToFind || $isNotEmptyFilters) {
-            $queryPart = 'where ';
+            $queryPart = 'WHERE ';
 
             if ($isToFind) {
                 $queryPart .= "`email`  like '%$toFind%'\n";
