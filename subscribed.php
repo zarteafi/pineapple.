@@ -1,6 +1,9 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . '/View/template.php');
-getHeader('<link rel="stylesheet" href="../src/styles/subscribed.min.css">');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php');
+
+use App\View\Template as Template;
+
+Template::getHeader('<link rel="stylesheet" href="../src/styles/subscribed.min.css">');
 ?>
 
     <section class="hero">
@@ -9,4 +12,4 @@ getHeader('<link rel="stylesheet" href="../src/styles/subscribed.min.css">');
             discount code.</p>
     </section>
 <?php
-getFooter();
+Template::getFooter();

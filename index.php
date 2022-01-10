@@ -1,9 +1,13 @@
 <?php
+
+require_once($_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php');
+
+use App\Controller\UserFormValidation as UserFormValidation;
+use App\View\Template as Template;
+
 ob_start();
 
-require($_SERVER['DOCUMENT_ROOT'] . '/View/template.php');
-getHeader('<script defer src="../src/js/index.js"></script>');
-require($_SERVER['DOCUMENT_ROOT'] . '/Controller/ServerSideValidation.php');
+Template::getHeader('<script defer src="../src/js/index.js"></script>');
 
 UserFormValidation::validate()
 ?>
@@ -34,5 +38,4 @@ UserFormValidation::validate()
         </form>
     </section>
 <?php
-getFooter();
-
+Template::getFooter();

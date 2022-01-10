@@ -1,8 +1,8 @@
 <?php
 
-//namespace App\DBCommunication;
-//require($_SERVER['DOCUMENT_ROOT'] . '/Model/DBCommunication.php');
+namespace App\Model;
 
+//require($_SERVER['DOCUMENT_ROOT'] . '/Model/DBCommunication.php');
 
 class DBCommunication
 {
@@ -29,20 +29,7 @@ class DBCommunication
         mysqli_query(DBCommunication::connect(), "INSERT INTO `pineapple_db`.`subscribed` (`email`) VALUES ('$checkedEmail')");
     }
 
-    public static function getEmails(): array
-    {
-        $emails = [];
-        $dates = [];
-        $result = mysqli_query(DBCommunication::connect(), "SELECT `id`,`email`, `date` FROM `pineapple_db`.`subscribed`");
-
-        foreach ($result as $elem) {
-            $emails[$elem['id']] = $elem['email'];
-            $dates[$elem['id']] = $elem['date'];
-        }
-        return ['emails' => $emails, 'dates' => $dates];
-    }
-
-    public static function getFilteredEmails($toFind, $sortBy, $sortOrder, $filters): array
+    public static function getData($toFind = '', $sortBy = 'date', $sortOrder = 'ASC', $filters = []): array
     {
         $emails = [];
         $dates = [];
@@ -82,27 +69,6 @@ ORDER BY `$sortBy` $sortOrder;";
                 $queryPart .= ')';
             }
         }
-
-//        if ($toFind !== '') {
-//            $search = "where `email`  like '%$toFind%'";
-//        } elseif (!empty($filters)) {
-//            $search = current($filters);
-//            unset($filters[$search]);
-//            $search = "where `email`  like '%$search%'";
-//        } else {
-//            $search = '';
-//        }
-//
-//        if (!empty($filters)) {
-//            foreach ($filters as $key => $value) {
-//                $filtersString .= "OR `email` LIKE '%$key%'";
-//            }
-//        } else {
-//            $filtersString = '';
-//        }
-//
-//        $query = str_replace('#SEARCH', $search, $query);
-//        $query = str_replace('#FILTERS', $filtersString, $query);
 
         $query = str_replace('#QUERYPART', $queryPart, $query);
 

@@ -1,15 +1,16 @@
 <?php
 
-//namespace App\FormValidate;
+namespace App\Controller;
 
-require($_SERVER['DOCUMENT_ROOT'] . '/Model/DBCommunication.php');
+use App\Model\DBCommunication as DBCommunication;
+use Exception as Exception;
 
 
-class EmailException extends \Exception
+class EmailException extends Exception
 {
 }
 
-class AgreementException extends \Exception
+class AgreementException extends Exception
 {
 }
 
@@ -68,13 +69,13 @@ class UserFormValidation
 
         try {
             UserFormValidation::validateEmail();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             UserFormValidation::$emailError = $e->getMessage();
         }
 
         try {
             UserFormValidation::validateAgreement();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             UserFormValidation::$agreementError = $e->getMessage();
         }
 

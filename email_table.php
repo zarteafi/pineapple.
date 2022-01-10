@@ -1,53 +1,15 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . '/Model/DBCommunication.php');
 
-if (isset($_POST['delete'])) {
-    DBCommunication::deleteEmail($_POST['delete']);
-}
+require_once($_SERVER['DOCUMENT_ROOT'] . '/bootstrap.php');
 
-if (count($_POST) > 2 ||
-    (isset($_POST['toFind']) && $_POST['toFind'] !== '') ||
-    (isset($_POST['sort']) && $_POST['sort'] !== 'dasc')) {
+use App\Controller\EmailTableController as EmailTableController;
 
-    $toFind = htmlspecialchars($_POST['toFind']);
-    $sortBy = $_POST['sort'][0] === 'e' ? 'email' : 'date';
-    $sortOrder = $_POST['sort'][1] === 'd' ? 'DESC' : 'ASC';
-    $filters = $_POST;
-    unset($filters['toFind']);
-    unset($filters['sort']);
-    $data = DBCommunication::getFilteredEmails($toFind, $sortBy, $sortOrder, $filters);
-    $isFiltered = true;
-} else {
-    $data = DBCommunication::getEmails();
-    $isFiltered = false;
-}
+$result = EmailTableController::act();
+$emails = $result[0];
+$dates = $result[1];
+$filteredDomains = $result[2];
+$isFiltered = $result[3];
 
-$emails = $data['emails'];
-$dates = $data['dates'];
-
-if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
-    DBCommunication::deleteEmail($_GET['delete']);
-}
-
-$domains = [];
-foreach ($emails as $email) {
-    preg_match('/(?<=@)[^.]+/', $email, $domain);
-    if (isset($domains[$domain[0]])) {
-        $domains[$domain[0]]++;
-    } else {
-        $domains[$domain[0]] = 1;
-    }
-}
-
-$filteredDomains = [];
-if (isset($domains['gmail']) && $domains['gmail'] >= 3 && isset($domains['yahoo']) && $domains['yahoo'] >= 5 && isset($domains['outlook']) && $domains['outlook'] >= 2) {
-    foreach ($domains as $domain => $count) {
-        if ($count >= 2) {
-            $filteredDomains[] = $domain;
-        }
-    }
-
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -63,7 +25,8 @@ if (isset($domains['gmail']) && $domains['gmail'] >= 3 && isset($domains['yahoo'
     <table id="table" border="1" cellspacing="0">
         <input id="search" name="toFind"/>
         <br/>
-        <?php foreach ($filteredDomains as $domain): ?>
+        <?php
+        foreach ($filteredDomains as $domain): ?>
             <input type="checkbox" id="<?= $domain ?>" name="<?= $domain ?>">
             <label for="<?= $domain ?>"><?= $domain ?></label>
         <?php endforeach; ?>
